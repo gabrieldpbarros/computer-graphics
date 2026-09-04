@@ -44,9 +44,9 @@ function fillBresenham(vertices, canvas) {
         let p = 2 * dy - dx;
         let numSteps = dx;
         for (let step = 0; i < MAX_SIZE && step < numSteps; step++) {
-            if (p < 0) {
+            if (p < 0)
                 p += incInf;
-            } else {
+            else {
                 p += incSup;
                 y += ystep;
             }
