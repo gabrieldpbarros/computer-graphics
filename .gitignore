@@ -1,2 +1,3 @@
 zip-files/
 materiais/
+**/node_modules
