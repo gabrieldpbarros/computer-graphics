@@ -1,15 +1,18 @@
 #!/bin/sh
+set -e # caso algo falhe
+
 npm init -y
 cat > index.js <<'EOF'
 import * as THREE from 'three';
 const canvas = document.querySelector('canvas.webgl');
 
+const FOV = 75;
+const ASPECT = 2;
+const NEAR = 0.1;
+const FAR = 5;
+const camera = new THREE.PerspectiveCamera(FOV, ASPECT, NEAR, FAR);
+
 const scene = new THREE.Scene();
-const sizes = {
-    width: 800,
-    height: 600,
-}
-const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height);
 scene.add(camera);
 
 const renderer = new THREE.WebGLRenderer({
@@ -30,7 +33,7 @@ cat > index.html <<'EOF'
 <body>
     <canvas class="webgl"></canvas>
 </body>
-<script type="module" src="./main.js"></script>
+<script type="module" src="./index.js"></script>
 </html>
 EOF
 # three.js
@@ -57,5 +60,12 @@ export default defineConfig([
     }
 ]);
 EOF
+
+# scripts
+npm pkg set \
+    'scripts.dev=vite' \
+    'scripts.build=vite build' \
+    'scripts.preview=vite preview' \
+    'scripts.lint=eslint .'
 
 echo "Projeto inicializado com sucesso!"

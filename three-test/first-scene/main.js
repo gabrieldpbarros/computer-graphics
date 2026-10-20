@@ -5,7 +5,7 @@ const canvas = document.querySelector('canvas.webgl');
 console.log(THREE);
 const scene = new THREE.Scene();
 const geometry = new THREE.BoxGeometry(1, 1, 1);
-const material = new THREE.MeshBasicMaterial({ color: 0xff0000 })
+const material = new THREE.MeshPhongMaterial({ color: 0xff0000 })
 const mesh = new THREE.Mesh(geometry, material);
 scene.add(mesh);
 
@@ -16,12 +16,19 @@ const sizes = {
 }
 // Camera
 const camera = new THREE.PerspectiveCamera(90, sizes.width / sizes.height);
-camera.position.z = 3;
 camera.position.x = 0.6;
 camera.position.y = 2;
+camera.position.z = 3;
 camera.rotation.y = 0.5;
 camera.rotation.x = -0.7;
 scene.add(camera);
+
+// Light
+const lightColor = 0xFFFFFF;
+const intensity = 3;
+const light = new THREE.DirectionalLight(lightColor, intensity);
+light.position.set(0.3, 2.5, 3)
+scene.add(light);
 
 // Renderer
 const renderer = new THREE.WebGLRenderer({
